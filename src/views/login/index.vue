@@ -66,10 +66,26 @@ export default {
     }
   },
   methods: {
+    //   登录按钮点击事件
     onLogin () {
-      this.$refs.formobj.validate(function (isok) {
+      this.$refs.formobj.validate((isok) => {
         if (isok) {
-          // 表单数据校验成功，调axios接口
+          // 表单数据校验成功，调axios接口，获取token
+          this.$axios({
+            method: 'post',
+            url: '/authorizations',
+            data: this.loginForm
+          }).then(result => {
+            // 存入token
+            window.localStorage.setItem('user-token', result.data.data.token)
+            // 编程式导航
+            this.$router.push('/')
+          }).catch(() => {
+            this.$message({
+              message: '手机或验证码错误！',
+              type: 'warning'
+            })
+          })
         }
       })
     }
