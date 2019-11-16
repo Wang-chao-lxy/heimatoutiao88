@@ -15,7 +15,7 @@
         <el-dropdown-item icon="el-icon-circle-plus">狮子头</el-dropdown-item>
         <el-dropdown-item icon="el-icon-circle-plus-outline">螺蛳粉</el-dropdown-item>
         <el-dropdown-item icon="el-icon-check">双皮奶</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-check">蚵仔煎</el-dropdown-item>
+        <el-dropdown-item icon="el-icon-circle-check" @click.native="onlogout">退出</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
       </el-col>
@@ -24,6 +24,29 @@
 
 <script>
 export default {
+  methods: {
+    onlogout () {
+      // 这里使用MessageBox 弹框 组件
+      this.$confirm('您确定要退出登录吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 点击确定后删除token并编程式导航到登录页
+        window.localStorage.removeItem('user-token')
+        this.$router.push('/login')
+        this.$message({
+          type: 'success',
+          message: '退出成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消退出'
+        })
+      })
+    }
+  }
 
 }
 </script>

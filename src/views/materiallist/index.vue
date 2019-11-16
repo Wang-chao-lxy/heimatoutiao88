@@ -1,5 +1,5 @@
 <template>
-  <div>首页</div>
+  <div class="material">素材列表</div>
 </template>
 
 <script>

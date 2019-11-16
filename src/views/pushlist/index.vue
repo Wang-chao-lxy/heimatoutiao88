@@ -1,5 +1,5 @@
 <template>
-  <div>首页</div>
+  <div class="push">发布文章</div>
 </template>
 
 <script>
